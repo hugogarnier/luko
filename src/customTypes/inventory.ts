@@ -1,8 +1,8 @@
 export type InventoryItems = {
   id: string;
   name: string;
-  purchasePrice: string | number;
+  value: string;
   type?: string;
   description?: string;
-  photo?: string;
+  imageUri: string;
 }[];

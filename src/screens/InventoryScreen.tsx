@@ -1,23 +1,30 @@
+import { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 
+import { useIsFocused } from '@react-navigation/native';
+
+import { InventoryCard, Title } from '../components';
 import { InventoryItems } from '../customTypes';
 import { RootTabScreenProps } from '../navigation/types';
 import { colors } from '../theme/colors';
-import { valuables } from '../../jest/data';
-import { InventoryCard, Title } from '../components';
+import { getAsyncStorageItem } from '../sdk';
 
 export default function InventoryScreen({ navigation, route }: RootTabScreenProps<'Inventory'>) {
+  const [items, setItems] = useState();
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused) {
+      (async () => {
+        setItems(await getAsyncStorageItem('inventory'));
+      })();
+    }
+  }, [isFocused]);
   const handleAddButtonPress = () => navigation.navigate('AddItem');
 
   const renderItem = ({ item, index }: { item: InventoryItems[number]; index: number }) => {
     return (
-      <InventoryCard
-        key={item.id}
-        photo={item.photo}
-        name={item.name}
-        purchasePrice={item.purchasePrice}
-        index={index}
-      />
+      <InventoryCard imageUri={item.imageUri} name={item.name} value={item.value} index={index} />
     );
   };
 
@@ -25,7 +32,7 @@ export default function InventoryScreen({ navigation, route }: RootTabScreenProp
     <View style={styles.container}>
       <Title onButtonPress={handleAddButtonPress}>{route.name}</Title>
       <FlatList
-        data={valuables}
+        data={items}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         numColumns={2}

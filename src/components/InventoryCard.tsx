@@ -1,7 +1,8 @@
-import { Dimensions, Image, Pressable, StyleSheet, Text, View } from 'react-native';
-import { fonts } from '../theme/fonts';
-import { InventoryItems } from '../customTypes';
 import { FC } from 'react';
+import { Dimensions, Image, Pressable, StyleSheet, View } from 'react-native';
+
+import { InventoryItems } from '../customTypes';
+import { Text } from './Text';
 
 const { width } = Dimensions.get('window');
 
@@ -9,10 +10,10 @@ const ITEM_WIDTH = width * 0.5;
 const ITEM_HEIGHT = 250;
 const BORDER_RADIUS = 20;
 
-type InventoryCard = Pick<InventoryItems[number], 'name' | 'purchasePrice' | 'photo'> & {
+type InventoryCard = Pick<InventoryItems[number], 'name' | 'value' | 'imageUri'> & {
   index: number;
 };
-export const InventoryCard: FC<InventoryCard> = ({ name, purchasePrice, photo, index }) => {
+export const InventoryCard: FC<InventoryCard> = ({ name, value, imageUri, index }) => {
   return (
     <Pressable
       style={{
@@ -23,10 +24,24 @@ export const InventoryCard: FC<InventoryCard> = ({ name, purchasePrice, photo, i
       }}
     >
       <View style={styles.itemContent}>
-        <Image source={{ uri: photo }} style={styles.itemImage} />
-        <View>
-          <Text style={styles.itemText}>{name}</Text>
-          <Text style={styles.itemText}>{purchasePrice}</Text>
+        <Image
+          source={{
+            uri:
+              (imageUri && imageUri) ||
+              'https://i.ibb.co/znXC7LQ/marcus-lewis-U63z-XX2f7ho-unsplash.jpg',
+          }}
+          style={styles.itemImage}
+        />
+        <View
+          style={{
+            flex: 1,
+            marginVertical: 12,
+            marginHorizontal: 20,
+            justifyContent: 'space-between',
+          }}
+        >
+          <Text variant={'primary'}>{name}</Text>
+          <Text variant={'secondary'}>€{value}</Text>
         </View>
       </View>
     </Pressable>
@@ -35,21 +50,25 @@ export const InventoryCard: FC<InventoryCard> = ({ name, purchasePrice, photo, i
 
 const styles = StyleSheet.create({
   itemContent: {
+    flex: 1,
+    width: ITEM_WIDTH * 0.85,
     height: '100%',
-    // alignItems: 'center',
     backgroundColor: 'white',
     borderRadius: BORDER_RADIUS,
-  },
-  itemText: {
-    fontSize: 24,
-    color: 'black',
-    fontWeight: '600',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   itemImage: {
     width: '100%',
-    height: ITEM_WIDTH - 20,
-    borderTopStartRadius: BORDER_RADIUS,
-    borderTopEndRadius: BORDER_RADIUS,
+    height: ITEM_WIDTH - 30,
+    borderTopLeftRadius: BORDER_RADIUS,
+    borderTopRightRadius: BORDER_RADIUS,
     borderBottomStartRadius: 0,
     borderBottomEndRadius: 0,
     resizeMode: 'cover',

@@ -1,5 +1,9 @@
 export { AddButton } from './AddButton';
+export { AddImage } from './AddImage';
 export { Button } from './Button';
 export { Input } from './Input';
 export { InventoryCard } from './InventoryCard';
+export { Modal } from './Modal';
+export { Text } from './Text';
 export { Title } from './Title';
+export { Rule } from './Rule';

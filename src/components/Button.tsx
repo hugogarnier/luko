@@ -1,12 +1,12 @@
 import { Pressable, PressableProps, Text } from 'react-native';
-import { colors } from '../theme/colors';
+import { colors } from '../theme';
 
-export const Button = ({ title, onPress, disabled }: PressableProps & { title: string }) => {
+export const Button = ({ title, onPress, disabled, style }: PressableProps & { title: string }) => {
   return (
     <Pressable
       onPress={onPress}
       disabled={disabled}
-      style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}
+      style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1, style }]}
       pressRetentionOffset={20}
       hitSlop={20}
     >
