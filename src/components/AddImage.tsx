@@ -13,7 +13,7 @@ type AddImageProps = {
 };
 export const AddImage: FC<AddImageProps> = ({ imageUri, errorImageUri, setModalVisible }) => {
   return (
-    <Pressable onPress={() => setModalVisible(true)}>
+    <Pressable onPress={() => setModalVisible(true)} testID="addImage">
       <View style={styles.imageContainer}>
         {(imageUri && (
           <Image

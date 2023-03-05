@@ -11,7 +11,8 @@
       "backgroundColor": "#ffffff"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/5523c600-ec99-4544-be7b-b16bea835932"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -23,7 +24,12 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.CAMERA"
+      ],
+      "package": "com.hugo0.lukotest"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -35,6 +41,6 @@
           "photosPermission": "The app accesses your photos."
         }
       ]
-    ]
+    ],
   }
 }

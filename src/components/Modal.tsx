@@ -15,6 +15,7 @@ export const Modal: FC<ModalProps> = ({ children, modalVisible, setModalVisible 
       onRequestClose={() => {
         setModalVisible(!modalVisible);
       }}
+      testID="modal"
     >
       <View style={{ flex: 1, justifyContent: 'flex-end' }}>
         <View style={styles.modalView}>{children}</View>

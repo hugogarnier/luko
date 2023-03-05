@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 
 import { useIsFocused } from '@react-navigation/native';
 
-import { InventoryCard, Title } from '../components';
-import { InventoryItems } from '../customTypes';
-import { RootTabScreenProps } from '../navigation/types';
-import { colors } from '../theme/colors';
-import { getAsyncStorageItem } from '../sdk';
+import { InventoryCard, Title } from '../../components';
+import { InventoryItems } from '../../customTypes';
+import { RootTabScreenProps } from '../../navigation/types';
+import { colors } from '../../theme';
+import { getAsyncStorageItem } from '../../sdk';
 
-export default function InventoryScreen({ navigation, route }: RootTabScreenProps<'Inventory'>) {
+export const InventoryScreen = ({ navigation, route }: RootTabScreenProps<'Inventory'>) => {
   const [items, setItems] = useState();
   const isFocused = useIsFocused();
 
@@ -29,7 +29,7 @@ export default function InventoryScreen({ navigation, route }: RootTabScreenProp
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID="inventoryScreen">
       <Title onButtonPress={handleAddButtonPress}>{route.name}</Title>
       <FlatList
         data={items}
@@ -38,10 +38,11 @@ export default function InventoryScreen({ navigation, route }: RootTabScreenProp
         numColumns={2}
         ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
         style={{ marginTop: 20 }}
+        testID="flatList"
       />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

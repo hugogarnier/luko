@@ -10,12 +10,12 @@ import {
 
 import uuid from 'react-native-uuid';
 
-import { AddImage, Button, Input, Modal, Rule } from '../components';
-import { RootTabScreenProps } from '../navigation/types';
-import { colors } from '../theme';
-import { getAsyncStorageItem, ImagePicker, setAsyncStorageItem } from '../sdk';
+import { AddImage, Button, Input, Modal, Rule } from '../../components';
+import { RootTabScreenProps } from '../../navigation/types';
+import { colors } from '../../theme';
+import { getAsyncStorageItem, ImagePicker, setAsyncStorageItem } from '../../sdk';
 
-export default function AddItemScreen({ navigation }: RootTabScreenProps<'AddItemScreen'>) {
+export const AddItemScreen = ({ navigation }: RootTabScreenProps<'AddItemScreen'>) => {
   const [values, setValues] = useState({
     id: '',
     name: '',
@@ -75,6 +75,7 @@ export default function AddItemScreen({ navigation }: RootTabScreenProps<'AddIte
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
+      testID="addItemScreen"
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={{ flex: 1 }}>
@@ -127,7 +128,7 @@ export default function AddItemScreen({ navigation }: RootTabScreenProps<'AddIte
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

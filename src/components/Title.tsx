@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { fonts } from '../theme/fonts';
+import { fonts } from '../theme';
+
 import { AddButton } from './AddButton';
 
 export const Title = (props: { children: string; onButtonPress?: () => void }) => {
   return (
-    <View style={styles.titleContainer}>
+    <View style={styles.titleContainer} testID="title">
       <Text style={styles.title}>{props.children}</Text>
       {props.onButtonPress ? <AddButton onPress={props.onButtonPress} /> : null}
     </View>

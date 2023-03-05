@@ -1,6 +1,6 @@
 import { StyleSheet, Pressable, PressableProps } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { colors } from '../theme/colors';
+import { colors } from '../theme';
 
 export const AddButton = (props: PressableProps) => {
   return (

@@ -9,6 +9,7 @@ export const Button = ({ title, onPress, disabled, style }: PressableProps & { t
       style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1, style }]}
       pressRetentionOffset={20}
       hitSlop={20}
+      testID="button"
     >
       <Text style={{ fontSize: 17, color: disabled ? colors.mainGrey : colors.mainBlue }}>
         {title}

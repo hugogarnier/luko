@@ -26,7 +26,7 @@ export const Input: FC<Input> = ({
   const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID="input">
       <Text variant={'input'} style={styles.label}>
         {label}
       </Text>
