@@ -11,6 +11,7 @@ export const compareTotalValue = (newValue: string, items: InventoryItems) => {
     const totalValues = items.reduce((acc: number, current: InventoryItems[number]) => {
       return acc + Number(current.value);
     }, 0);
+    console.log('totalValues', totalValues);
 
     if (totalValues + Number(newValue) > 40000) {
       return false;

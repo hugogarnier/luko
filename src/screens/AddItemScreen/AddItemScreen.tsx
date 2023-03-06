@@ -56,7 +56,7 @@ export const AddItemScreen = ({ navigation }: RootTabScreenProps<'AddItemScreen'
     if (!values.value) {
       return setValues({ ...values, errorValue: 'value is mandatory' });
     }
-    if (!isTotalValueOverLimit) {
+    if (!isTotalValueOverLimit && inventoryItems) {
       return setValues({
         ...values,
         errorValue: 'total of values cannot be greater than €40000',
