@@ -10,7 +10,7 @@ import { colors } from '../../theme';
 import { getAsyncStorageItem } from '../../sdk';
 
 export const InventoryScreen = ({ navigation, route }: RootTabScreenProps<'Inventory'>) => {
-  const [items, setItems] = useState();
+  const [items, setItems] = useState<InventoryItems>([]);
   const isFocused = useIsFocused();
 
   useEffect(() => {

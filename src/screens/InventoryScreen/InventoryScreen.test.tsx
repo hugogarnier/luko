@@ -6,15 +6,16 @@ import MockNavigator from '../../../jest/setup/mockNavigator';
 
 describe('InventoryScreen', () => {
   it('Render', () => {
-    const { getByTestId } = render(<MockNavigator component={InventoryScreen} />);
+    const { getByTestId, unmount } = render(<MockNavigator component={InventoryScreen} />);
 
     const inventoryScreen = getByTestId('inventoryScreen');
 
     expect(inventoryScreen).toBeTruthy();
+    unmount();
   });
 
   it('Components', () => {
-    const { getByTestId } = render(<MockNavigator component={InventoryScreen} />);
+    const { getByTestId, unmount } = render(<MockNavigator component={InventoryScreen} />);
 
     const inventoryScreen = getByTestId('inventoryScreen');
     const flatList = getByTestId('flatList');
@@ -23,5 +24,7 @@ describe('InventoryScreen', () => {
     expect(inventoryScreen).toBeTruthy();
     expect(flatList).toBeTruthy();
     expect(title).toBeTruthy();
+
+    unmount();
   });
 });

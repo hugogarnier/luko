@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -8,15 +8,25 @@ import {
   View,
 } from 'react-native';
 
+import { useIsFocused } from '@react-navigation/native';
 import uuid from 'react-native-uuid';
 
 import { AddImage, Button, Input, Modal, Rule } from '../../components';
+import { InventoryItems } from '../../customTypes';
 import { RootTabScreenProps } from '../../navigation/types';
 import { colors } from '../../theme';
 import { getAsyncStorageItem, ImagePicker, setAsyncStorageItem } from '../../sdk';
+import { compareTotalValue } from '../../services';
 
+type Values = Omit<InventoryItems[number], 'description'> & {
+  description: string;
+  errorName?: string;
+  errorValue?: string;
+  errorImageUri?: string;
+};
 export const AddItemScreen = ({ navigation }: RootTabScreenProps<'AddItemScreen'>) => {
-  const [values, setValues] = useState({
+  const [inventoryItems, setInventoryItems] = useState<InventoryItems>([]);
+  const [values, setValues] = useState<Values>({
     id: '',
     name: '',
     value: '',
@@ -27,24 +37,35 @@ export const AddItemScreen = ({ navigation }: RootTabScreenProps<'AddItemScreen'
     errorImageUri: '',
   });
   const [modalVisible, setModalVisible] = useState(false);
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused) {
+      (async () => {
+        setInventoryItems(await getAsyncStorageItem('inventory'));
+      })();
+    }
+  }, [isFocused]);
+
   const handleAdd = async () => {
+    const isTotalValueOverLimit = compareTotalValue(values.value, inventoryItems);
+
     if (!values.name) {
       return setValues({ ...values, errorName: 'name is mandatory' });
     }
     if (!values.value) {
       return setValues({ ...values, errorValue: 'value is mandatory' });
     }
-    if (0 >= Number(values.value) || Number(values.value) > 40000) {
+    if (!isTotalValueOverLimit) {
       return setValues({
         ...values,
-        errorValue: 'value cannot be less than 0 and greater than 40000',
+        errorValue: 'total of values cannot be greater than €40000',
       });
     }
     if (!values.imageUri) {
       return setValues({ ...values, errorImageUri: 'image is mandatory' });
     }
 
-    const inventoryItems = await getAsyncStorageItem('inventory');
     await setAsyncStorageItem(
       'inventory',
       JSON.stringify(
@@ -63,6 +84,7 @@ export const AddItemScreen = ({ navigation }: RootTabScreenProps<'AddItemScreen'
     }
     setModalVisible(false);
   };
+
   const handleImagePickerGallery = async () => {
     const image = await ImagePicker.pickImage();
     if (image && image.assets) {
@@ -81,7 +103,7 @@ export const AddItemScreen = ({ navigation }: RootTabScreenProps<'AddItemScreen'
         <View style={{ flex: 1 }}>
           <View style={styles.buttonsContainer}>
             <Button title="Cancel" onPress={() => navigation.goBack()} />
-            <Button title="Add" onPress={handleAdd} />
+            <Button title="Add" onPress={handleAdd} testID="addButton" />
           </View>
           <View style={styles.formContainer}>
             <AddImage

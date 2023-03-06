@@ -6,15 +6,17 @@ import MockNavigator from '../../../jest/setup/mockNavigator';
 
 describe('AddItemScreen', () => {
   it('Render', () => {
-    const { getByTestId } = render(<MockNavigator component={AddItemScreen} />);
-
+    const { getByTestId, unmount } = render(<MockNavigator component={AddItemScreen} />);
     const addItemScreen = getByTestId('addItemScreen');
 
     expect(addItemScreen).toBeTruthy();
+    unmount();
   });
 
   it('Components', () => {
-    const { getByTestId, queryAllByTestId } = render(<MockNavigator component={AddItemScreen} />);
+    const { getByTestId, queryAllByTestId, unmount } = render(
+      <MockNavigator component={AddItemScreen} />,
+    );
 
     const addItemScreen = getByTestId('addItemScreen');
     const addImage = getByTestId('addImage');
@@ -27,5 +29,7 @@ describe('AddItemScreen', () => {
     expect(modal).toBeTruthy();
     expect(buttons.length).toEqual(2);
     expect(inputs.length).toEqual(3);
+
+    unmount();
   });
 });

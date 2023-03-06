@@ -22,6 +22,7 @@ export const InventoryCard: FC<InventoryCard> = ({ name, value, imageUri, index 
         height: ITEM_HEIGHT,
         marginRight: index % 2 !== 0 ? 0 : 20,
       }}
+      testID={'inventoryCard'}
     >
       <View style={styles.itemContent}>
         <Image

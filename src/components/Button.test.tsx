@@ -6,7 +6,6 @@ import { Button } from './Button';
 describe('AddItemScreen', () => {
   it('Render', () => {
     const { getByTestId } = render(<Button title="test" />);
-
     const button = getByTestId('button');
 
     expect(button).toBeTruthy();

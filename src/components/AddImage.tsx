@@ -8,7 +8,7 @@ import { Text } from './Text';
 
 type AddImageProps = {
   imageUri: string;
-  errorImageUri: string;
+  errorImageUri?: string;
   setModalVisible: (arg: boolean) => void;
 };
 export const AddImage: FC<AddImageProps> = ({ imageUri, errorImageUri, setModalVisible }) => {
